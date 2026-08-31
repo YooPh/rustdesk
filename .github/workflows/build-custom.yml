@@ -6,14 +6,9 @@ on:
     tags:
       - "custom-v*"
 
-# The reusable Flutter workflow builds the configured Windows and Android
-# packages, and may also publish the other enabled platform packages.
+# Build only the configured Windows and Android packages.
 permissions:
   contents: write
-
-env:
-  # Keep one build running at a time so releases are not mixed.
-  RUSTDESK_CUSTOM_BUILD: "true"
 
 concurrency:
   group: custom-rustdesk-build-${{ github.ref }}
@@ -26,4 +21,5 @@ jobs:
     with:
       upload-artifact: true
       upload-tag: custom-${{ github.run_number }}
+      platforms: "windows,android"
     secrets: inherit
