@@ -49,6 +49,16 @@
       "host": false
     },
     {
+      "name": "mfx-dispatch",
+      "host": true,
+      "platform": "((x86 | x64) & (android | linux)) | (windows & !uwp)"
+    },
+    {
+      "name": "mfx-dispatch",
+      "host": false,
+      "platform": "((x86 | x64) & (android | linux)) | (windows & !uwp)"
+    },
+    {
       "name": "ffmpeg",
       "host": true,
       "features": [
@@ -59,6 +69,10 @@
         {
           "name": "nvcodec",
           "platform": "((windows | linux) & static)"
+        },
+        {
+          "name": "qsv",
+          "platform": "(windows & static)"
         }
       ],
       "platform": "((windows | (linux & !arm32) | osx) & static)"
@@ -72,7 +86,7 @@
   "vcpkg-configuration": {
     "default-registry": {
       "kind": "builtin",
-      "baseline": "6f29f12e82a8293156836ad81cc9bf5af41fe836"
+      "baseline": "9e593bb18ea69cc5095e012465dcd675a822ed0d"
     },
     "overlay-ports": [
       "./res/vcpkg"

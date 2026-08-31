@@ -141,6 +141,9 @@ elseif(VCPKG_TARGET_IS_WINDOWS)
 --enable-encoder=hevc_amf \
 --enable-encoder=h264_nvenc \
 --enable-encoder=hevc_nvenc \
+--enable-libmfx \
+--enable-encoder=h264_qsv \
+--enable-encoder=hevc_qsv \
 ")
 
     if(VCPKG_TARGET_ARCHITECTURE STREQUAL "x86")
@@ -204,6 +207,11 @@ endif()
 
 string(APPEND VCPKG_COMBINED_C_FLAGS_DEBUG " -I \"${CURRENT_INSTALLED_DIR}/include\"")
 string(APPEND VCPKG_COMBINED_C_FLAGS_RELEASE " -I \"${CURRENT_INSTALLED_DIR}/include\"")
+
+if(VCPKG_TARGET_IS_WINDOWS)
+    string(APPEND VCPKG_COMBINED_C_FLAGS_DEBUG " -I \"${CURRENT_INSTALLED_DIR}/include/mfx\"")
+    string(APPEND VCPKG_COMBINED_C_FLAGS_RELEASE " -I \"${CURRENT_INSTALLED_DIR}/include/mfx\"")
+endif()
 
 # # Setup vcpkg toolchain
 set(prog_env "")
