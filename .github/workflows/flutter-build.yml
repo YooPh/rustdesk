@@ -145,7 +145,7 @@ jobs:
         with:
           vcpkgDirectory: C:\vcpkg
           vcpkgGitCommitId: ${{ env.VCPKG_COMMIT_ID }}
-          doNotCache: false
+          doNotCache: true
 
       - name: Install vcpkg dependencies
         env:
@@ -339,7 +339,7 @@ jobs:
         with:
           vcpkgDirectory: C:\vcpkg
           vcpkgGitCommitId: ${{ env.VCPKG_COMMIT_ID }}
-          doNotCache: false
+          doNotCache: true
 
       - name: Install vcpkg dependencies
         env:
@@ -550,7 +550,7 @@ jobs:
         uses: lukka/run-vcpkg@v11
         with:
           vcpkgGitCommitId: ${{ env.VCPKG_COMMIT_ID }}
-          doNotCache: false
+          doNotCache: true
 
       - name: Install vcpkg dependencies
         run: |
@@ -608,14 +608,14 @@ jobs:
           flutter build ipa --release --no-codesign
 
       # - name: Upload Artifacts
-      #   # if: env.ANDROID_SIGNING_KEY != null && env.UPLOAD_ARTIFACT == 'true'
+      #   # if: env.ANDROID_SIGNING_KEY != '' && env.UPLOAD_ARTIFACT == 'true'
       #   uses: actions/upload-artifact@master
       #   with:
       #     name: rustdesk-${{ env.VERSION }}-${{ matrix.job.arch }}.apk
       #     path: flutter/build/ios/ipa/*.ipa
 
       # - name: Publish ipa package
-      #   # if: env.ANDROID_SIGNING_KEY != null && env.UPLOAD_ARTIFACT == 'true'
+      #   # if: env.ANDROID_SIGNING_KEY != '' && env.UPLOAD_ARTIFACT == 'true'
       #   uses: softprops/action-gh-release@v1
       #   with:
       #     prerelease: true
@@ -666,14 +666,14 @@ jobs:
           flutter build ipa --release --no-codesign
 
       # - name: Upload Artifacts
-      #   # if: env.ANDROID_SIGNING_KEY != null && env.UPLOAD_ARTIFACT == 'true'
+      #   # if: env.ANDROID_SIGNING_KEY != '' && env.UPLOAD_ARTIFACT == 'true'
       #   uses: actions/upload-artifact@master
       #   with:
       #     name: rustdesk-${{ env.VERSION }}-${{ matrix.job.arch }}.apk
       #     path: flutter/build/ios/ipa/*.ipa
 
       # - name: Publish ipa package
-      #   # if: env.ANDROID_SIGNING_KEY != null && env.UPLOAD_ARTIFACT == 'true'
+      #   # if: env.ANDROID_SIGNING_KEY != '' && env.UPLOAD_ARTIFACT == 'true'
       #   uses: softprops/action-gh-release@v1
       #   with:
       #     prerelease: true
@@ -801,7 +801,7 @@ jobs:
         uses: lukka/run-vcpkg@v11
         with:
           vcpkgGitCommitId: ${{ env.VCPKG_COMMIT_ID }}
-          doNotCache: false
+          doNotCache: true
 
       - name: Install vcpkg dependencies
         run: |
@@ -1036,7 +1036,7 @@ jobs:
         with:
           vcpkgDirectory: /opt/artifacts/vcpkg
           vcpkgGitCommitId: ${{ env.VCPKG_COMMIT_ID }}
-          doNotCache: false
+          doNotCache: true
 
       - name: Install vcpkg dependencies
         run: |
@@ -1179,7 +1179,7 @@ jobs:
 
       - uses: r0adkll/sign-android-release@v1
         name: Sign app APK
-        if: env.ANDROID_SIGNING_KEY != null
+        if: env.ANDROID_SIGNING_KEY != ''
         id: sign-rustdesk
         with:
           releaseDirectory: ./signed-apk
@@ -1192,14 +1192,14 @@ jobs:
           BUILD_TOOLS_VERSION: ${{ env.ANDROID_SIGN_TOOL_VERSION }}
 
       - name: Upload Artifacts
-        if: env.ANDROID_SIGNING_KEY != null && env.UPLOAD_ARTIFACT == 'true'
+        if: env.ANDROID_SIGNING_KEY != '' && env.UPLOAD_ARTIFACT == 'true'
         uses: actions/upload-artifact@master
         with:
           name: rustdesk-${{ env.VERSION }}-${{ matrix.job.arch }}.apk
           path: ${{steps.sign-rustdesk.outputs.signedReleaseFile}}
 
       - name: Publish signed apk package
-        if: env.ANDROID_SIGNING_KEY != null && env.UPLOAD_ARTIFACT == 'true'
+        if: env.ANDROID_SIGNING_KEY != '' && env.UPLOAD_ARTIFACT == 'true'
         uses: softprops/action-gh-release@v1
         with:
           prerelease: true
@@ -1208,7 +1208,7 @@ jobs:
             ${{steps.sign-rustdesk.outputs.signedReleaseFile}}
 
       - name: Publish unsigned apk package
-        if: env.ANDROID_SIGNING_KEY == null && env.UPLOAD_ARTIFACT == 'true'
+        if: env.ANDROID_SIGNING_KEY == '' && env.UPLOAD_ARTIFACT == 'true'
         uses: softprops/action-gh-release@v1
         with:
           prerelease: true
@@ -1361,7 +1361,7 @@ jobs:
 
       - uses: r0adkll/sign-android-release@v1
         name: Sign app APK
-        if: env.ANDROID_SIGNING_KEY != null
+        if: env.ANDROID_SIGNING_KEY != ''
         id: sign-rustdesk
         with:
           releaseDirectory: ./signed-apk
@@ -1374,14 +1374,14 @@ jobs:
           BUILD_TOOLS_VERSION: ${{ env.ANDROID_SIGN_TOOL_VERSION }}
 
       - name: Upload Artifacts
-        if: env.ANDROID_SIGNING_KEY != null && env.UPLOAD_ARTIFACT == 'true'
+        if: env.ANDROID_SIGNING_KEY != '' && env.UPLOAD_ARTIFACT == 'true'
         uses: actions/upload-artifact@master
         with:
           name: rustdesk-${{ env.VERSION }}-${{ matrix.job.arch }}.apk
           path: ${{steps.sign-rustdesk.outputs.signedReleaseFile}}
 
       - name: Publish signed apk package
-        if: env.ANDROID_SIGNING_KEY != null && env.UPLOAD_ARTIFACT == 'true'
+        if: env.ANDROID_SIGNING_KEY != '' && env.UPLOAD_ARTIFACT == 'true'
         uses: softprops/action-gh-release@v1
         with:
           prerelease: true
@@ -1390,7 +1390,7 @@ jobs:
             ${{steps.sign-rustdesk.outputs.signedReleaseFile}}
 
       - name: Publish unsigned apk package
-        if: env.ANDROID_SIGNING_KEY == null && env.UPLOAD_ARTIFACT == 'true'
+        if: env.ANDROID_SIGNING_KEY == '' && env.UPLOAD_ARTIFACT == 'true'
         uses: softprops/action-gh-release@v1
         with:
           prerelease: true
@@ -1490,7 +1490,7 @@ jobs:
         with:
           vcpkgDirectory: /opt/artifacts/vcpkg
           vcpkgGitCommitId: ${{ env.VCPKG_COMMIT_ID }}
-          doNotCache: false
+          doNotCache: true
 
       - name: Install vcpkg dependencies
         if: matrix.job.arch == 'x86_64' || env.UPLOAD_ARTIFACT == 'true'
