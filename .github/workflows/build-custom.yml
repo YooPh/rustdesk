@@ -1,0 +1,29 @@
+name: Build custom RustDesk packages
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - "custom-v*"
+
+# The reusable Flutter workflow builds the configured Windows and Android
+# packages, and may also publish the other enabled platform packages.
+permissions:
+  contents: write
+
+env:
+  # Keep one build running at a time so releases are not mixed.
+  RUSTDESK_CUSTOM_BUILD: "true"
+
+concurrency:
+  group: custom-rustdesk-build-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Build configured RustDesk packages
+    uses: ./.github/workflows/flutter-build.yml
+    with:
+      upload-artifact: true
+      upload-tag: custom-${{ github.run_number }}
+    secrets: inherit
